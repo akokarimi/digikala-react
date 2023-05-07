@@ -1,0 +1,108 @@
+extends base
+
+block content
+ main.main__overview.container
+  section.filters
+    div(class="filters__title")
+      div(class="filters__title-closeicon")
+        svg.icon-clear
+          use(xlink:href="/img/svg-icons.svg#icon-clear")
+      p(class="filters__title-text") فیلترها
+    div(class="filters__item")
+      p برند
+      input#brands-toggle(type="checkbox", class="filter_checkbox")
+      label.toggle-icon--brands(for="brands-toggle")
+        svg.toggle-icon
+          use(xlink:href="/img/svg-icons.svg#icon-keyboard_arrow_down")
+      div(class="filters__brands")
+       -let brands = []; let brandsF = []; let i = 0;
+       each product in products
+        -if (!brands.includes(product.brandEnglish)){brands.push(product.brandEnglish)};{brandsF.push(product.brandFarsi)};
+       each brand in brands
+        -i++;
+         div(class="filters__brands-item")
+          input(type="checkbox", class=`filters__brands-item-checkbox ${brand}` id=`${brand}`)
+          label(class="filters__brands-item-label", for=`${brand}`)
+           p= brand
+           p= brandsF[i-1]   
+    
+    div(class="filters__item")
+      p قیمت
+      input#price-toggle(type="checkbox", class="filter_checkbox")
+      label.toggle-icon--price(for="price-toggle")
+        svg.toggle-icon
+          use(xlink:href="/img/svg-icons.svg#icon-keyboard_arrow_down")
+      -let biggestPrice = 0; products.forEach(el => {if (el.price > biggestPrice) biggestPrice = el.price});
+      div(class="filters__price")
+        .slider
+          div(class="slider__prices")
+            p از
+            span(class="slider__prices-min") 0 
+            p تومان
+          div(class="slider__prices")
+            p تا
+            span(class="slider__prices-max")= biggestPrice 
+            p تومان
+        .slider-container
+          .slider-track
+          input#min-slider(type="range", min="0", max=`${biggestPrice}`, value="0")
+          input#max-slider(type="range", min="0", max=`${biggestPrice}`, value=`${biggestPrice}`)
+  section.content
+    div(class="content__sorting")
+      ul(class="content__sorting-desktop-list")
+        li(class="content__sorting-desktop-item content__sorting-desktop-title")
+          svg.svg-icon
+            use(xlink:href="/img/svg-icons.svg#icon-sort-amount-desc")
+          p(href="#") مرتب‌سازی:
+          svg(class="svg-icon content__sorting-desktop-title-closeicon")
+            use(xlink:href="/img/svg-icons.svg#icon-clear")
+        li(class="content__sorting-desktop-item")
+          a(href="/?sort=createdAt") جدیدترین
+        li(class="content__sorting-desktop-item")
+          a(href="/?sort=price") ارزان‌ترین
+        li(class="content__sorting-desktop-item")
+          a(href="/?sort=-price") گران‌ترین
+        li(class="content__sorting-desktop-item")
+          a(href="/?sort=-ratingsAverage") بیشترین امتیاز
+        li(class="content__sorting-desktop-item")
+          a(href="/?discount[gt]=0") فروش ویژه
+      ul(class="content__sorting-tablet-list")
+        li(class="content__sorting-tablet-item filters-openicon")
+          svg.svg-icon
+            use(xlink:href="/img/svg-icons.svg#icon-equalizer")
+          p(href="#") فیلترها
+        li(class="content__sorting-tablet-item sorting-openicon")
+          svg.svg-icon
+            use(xlink:href="/img/svg-icons.svg#icon-sort-amount-desc")
+          a(href="#") مرتب‌سازی
+      p(class="content__sorting-sumnum")= `${new Intl.NumberFormat("fa-IR").format(products.length)} کالا`
+    div(class="content__products")
+     each product in products
+      a(class="content__products-card" href=`/product/${product.slug}`)
+        div(class="content__products-card-imgbox")
+          div(class="content__products-card-imgbox-specialoffer")
+           svg.speciallsell-icon
+            -if(product.discount > 0)
+             use(xlink:href="/img/svg-icons.svg#icon-SpecialSell")
+            -if(product.discount == 0)
+             use()
+          div
+            img(src=`/img/${product.type}/${product.brandEnglish}/${product.model}/image-4.jpg`, alt=`${product.name}`, class="content__products-card-imgbox-img")
+        div(class="content__products-card-details")
+          p(class="content__products-card-details-name")= product.name
+          div(class="content__products-card-details-score")
+            p= `${new Intl.NumberFormat("fa-IR").format(product.ratingsAverage)}`
+            svg.score-icon
+              use(xlink:href="/img/svg-icons.svg#icon-star-full")
+          div(class="content__products-card-details-price")
+            -if(product.discount > 0)
+             p(class="content__products-card-details-price-discount")= `${new Intl.NumberFormat("fa-IR").format(product.discount)}٪`
+            -if(product.discount == 0)
+             p()
+            - let finalPrice; if (product.discount > 0) {finalPrice = product.price - (product.price * (product.discount / 100))} else {finalPrice = product.price};
+            p(class="content__products-card-details-price-final")= `${new Intl.NumberFormat("fa-IR").format(finalPrice)}`
+          -if(product.discount > 0)
+           p(class="content__products-card-details-before-price")= `${new Intl.NumberFormat("fa-IR").format(product.price)}` 
+          -if(product.discount == 0)
+           p() 
+          

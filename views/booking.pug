@@ -1,0 +1,48 @@
+extends base
+
+block content
+ -let cartBeforeDis  = 0; let cartFinalPrice = 0; let disAmount = 0; let wholeDis =0; let finalPrice=0;
+ zz(href="/") خانه
+ main.booking 
+  -if (user.orders)
+    .booking__Items 
+     each product in user.orders
+      .booking__item
+        div(class="booking__imgbox")
+          div(class="booking__imgbox-specialoffer")
+           svg.speciallsell-icon
+            -if(product.productName.discount > 0)
+             use(xlink:href="/img/svg-icons.svg#icon-SpecialSell")
+            -if(product.productName.discount == 0)
+             use()
+          a(class="booking__link" href=`/product/${product.productName.slug}`)
+              img(src=`/img/${product.productName.type}/${product.productName.brandEnglish}/${product.productName.model}/image-4.jpg`, alt=`${product.productName.name}`, class="booking__imgbox-img")
+        div(class="cart__details")
+          p(class="cart__details-name")= product.productName.name
+          div(class="cart__details-price")
+            div(class="cart__btn-div")
+              div.addtocart.cart__btn-atc(data-product-id=`${product.productName.id}`) +
+              p= `${new Intl.NumberFormat("fa-IR").format(product.productCount)}`
+              if product.productCount === 1 
+                div.removefromcart.cart__btn-atc
+                  svg.icon-trash(data-product-id=`${product.productName.id}`)
+                    use(xlink:href="/img/svg-icons.svg#icon-trash")
+              else 
+                div.removefromcart.cart__btn-atc(data-product-id=`${product.productName.id}`) -
+            - if (product.productName.discount > 0) {finalPrice = product.productName.price - (product.productName.price * (product.productName.discount / 100))} else {finalPrice = product.productName.price};  cartFinalPrice = cartFinalPrice + finalPrice * product.productCount; disAmount = product.productName.price - finalPrice; cartBeforeDis = cartBeforeDis + product.productName.price * product.productCount; wholeDis =  wholeDis + disAmount * product.productCount;
+            p(class="cart__details-price-final")= `${new Intl.NumberFormat("fa-IR").format(finalPrice * product.productCount)}`
+          -if(product.productName.discount > 0)
+            p(class="cart__details-before-price")= `${new Intl.NumberFormat("fa-IR").format(disAmount * product.productCount)} تومان تخفیف` 
+          -if(product.productName.discount == 0)
+            p()
+    .booking__thirdrow
+      div.booking__finalprice
+        p.booking__beforedis-text مبلغ قبل از تخفیف :
+        p.booking__beforedis-number= `${new Intl.NumberFormat("fa-IR").format(cartBeforeDis)} تومان`
+        p.booking__disamount-text سود شما از این خرید:
+        p.booking__disamount-number= `${new Intl.NumberFormat("fa-IR").format(wholeDis)} تومان`
+        p.booking__finalprice-text قابل پرداخت:
+        p.booking__finalprice-number= `${new Intl.NumberFormat("fa-IR").format(cartFinalPrice)} تومان`
+        button.booking-btn نهایی کردن سبد خرید
+  //- -if (!user || !user.orders)
+ 

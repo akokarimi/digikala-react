@@ -1,0 +1,233 @@
+extends base
+
+block content 
+ - let targetOrder; if(user && user.orders) {for (let i=0; i < user.orders.length ; i++) { if (user.orders[i].productName.id === product.id) {targetOrder = user.orders[i]}}}; 
+ main.main__product.container
+  section(class="section__directory container")
+    ul
+      li
+        a(href="/", class="section__directory-items") ساعت هوشمند
+  section.product.container
+    div(class="product__image")
+      if product.discount > 0
+        div(class="product__image-specialsell")
+          svg.special-sell-icon
+            use(xlink:href="/img/svg-icons.svg#icon-SpecialSell")
+      else 
+        div()
+      div(class="product__image-top")
+        ul(class="product__image-top-sidebar")        
+          li
+            svg.svg-icon
+              use(xlink:href="/img/svg-icons.svg#icon-heart-o")
+          li
+            svg.svg-icon
+              use(xlink:href="/img/svg-icons.svg#icon-share2")
+          li
+            svg.svg-icon
+              use(xlink:href="/img/svg-icons.svg#icon-bell-o")
+          li
+            svg.svg-icon
+              use(xlink:href="/img/svg-icons.svg#icon-stats-dots")
+          li
+            svg.svg-icon
+              use(xlink:href="/img/svg-icons.svg#icon-compare")
+        div(class="product__mainimagebox")
+          img(class="product__image-top-main", src=`/img/${product.type}/${product.brandEnglish}/${product.model}/image-4.jpg`, alt="watch")
+          .hoverzoom-hoverbox
+      div(class="product__image-bottom")
+        div(class="product__image-bottom-small")
+         -let i=1;
+         each image in product.images
+          img(class="product__smallimages", src=`/img/${product.type}/${product.brandEnglish}/${product.model}/image-${i}.jpg`, alt="watch")
+          -i++;
+        div(class="product__image-bottom-report")
+          div()
+            p
+              ion-icon.ion-icon(name="alert-circle-outline")
+            p گزارش نادرستی مشخصات
+          div
+            p
+    div(class="product__details")
+      .hoverzoom-box
+        img.hoverzoom-img(src=`/img/${product.type}/${product.brandEnglish}/${product.model}/image-4.jpg`)
+      .sellermodal.modal-hidden
+        div
+          h2.sellermodal-name فروشگاه بازرگانی آرکا
+          p عضو از ۳ سال و ۲ هفته
+        .sellermodal-score ۸۴.۸٪
+        .sellermodal-satisfaction
+          h3.sellermodal-satisfaction-title
+            | رضایت خریداران از کیفیت کالاها
+          p ۳۸ نفر امتیاز داده‌اند
+        .sellermodal-scorecategory عالی
+        .sellermodal-performance(dir="ltr")
+          p.sellermodal-performance-title عملکرد کلی فروشنده
+          .sellermodal-performance-details
+            h2 ۱۰۰٪
+            h2 ۱۰۰٪
+            h2 ۱۰۰٪
+            p تأمین به‌موقع
+            p تعهد ارسال
+            p بدون مرجوعی
+      h1(class="product__details-name")=product.name
+      div(class="product__details-scoring")
+        svg.score-icon
+          use(xlink:href="/img/svg-icons.svg#icon-star-full")
+        p=`${new Intl.NumberFormat("fa-IR").format(product.ratingsAverage)}`
+        span &#x2022;
+        a(href="#")=`${new Intl.NumberFormat("fa-IR").format(product.ratingsQuantity)} دیدگاه`
+      div(class="product__details-reviews")
+        svg.like-icon
+          use(xlink:href="/img/svg-icons.svg#icon-like")
+        p ۸۱٪ (۱۳۰ نفر) از کاربران، این کالا را پیشنهاد کرده‌اند
+      h2(class="product__details-colorname")=`رنگ: ${product.color[0]}`
+      div(class="product__details-colorcircles")
+        p(class="product__details-colorcircles-black") &nbsp;
+        p(class="product__details-colorcircles-green") &nbsp;
+      div(class="product__details-features", dir="rtl")
+        p ویژگی‌ها:
+        ul
+          li نوع کاربری &nbsp; : &nbsp;
+            span=product.application
+          li فرم صفحه &nbsp; : &nbsp;
+            span=product.screenType
+          li قطر &nbsp; : &nbsp;
+            span=`${new Intl.NumberFormat("fa-IR").format(product.diameter)} میلی‌متر`
+      div(class="product__details-returncondition")
+        svg.svg-icon
+          use(xlink:href="/img/svg-icons.svg#icon-exclamation-outline")
+        p
+          | درخواست مرجوع کردن کالا در گروه ساعت هوشمند با دلیل &quot;انصراف از
+          | خرید&quot; تنها در صورتی قابل تایید است که کالا در شرایط اولیه باشد (در
+          | صورت پلمپ بودن، کالا نباید باز شده باشد).
+      div(class="product__details-digiplus")
+        p(class="product__details-digiplus-title")
+          | ارسال
+          strong= ` رایگان `
+          | سفارش‌ها برای اعضای دیجی‌پلاس
+        p(class="product__details-digiplus-message")
+          | ۲۹ هزارتومان هزینه ارسال به سراسر ایران برای کاربران غیر دیجی‌پلاس
+      div(class="product__details-digiplus")
+        p(class="product__details-digiplus-title") ویژه اعضای دیجی‌پلاس
+        ul(class="product__details-digiplus-list")
+          li ارسال رایگان
+          li امکان ارسال فوری (شهر تهران)
+    div(class="product__seller")
+      .sellercard
+        .sellercard-title
+          h2 خرید
+        .sellercard-info
+          svg.svg-icon
+            use(xlink:href="/img/svg-icons.svg#icon-shop")
+          p.sellercard-name فروشنده: دیجی‌کالا
+          p &nbsp;
+          .sellercard-rating
+            a.sellercard-rating-satisfaction(href="#") ۸۷.۴٪
+            p رضایت از کالا
+            p |
+            p عملکرد
+            a.sellercard-rating-satisfaction(href="#") عالی
+        .sellercard-dividerline
+        .sellercard-guarantee
+          svg.svg-icon
+            use(xlink:href="/img/svg-icons.svg#icon-lock")
+          p.sellercard-guarantee-note
+            | گارانتی اصالت و سلامت فیزیکی کالا
+        .sellercard-dividerline
+        .sellercard-availability
+          svg.available-icon
+            use(xlink:href="/img/svg-icons.svg#icon-shopping-bag")
+          h2.sellercard-availability-status
+            | موجود در انبار دیجی‌کالا
+          div
+          .sellercard-shipping
+            svg.icon-truck
+              use(xlink:href="/img/svg-icons.svg#icon-truck")
+            p ارسال دیجی‌کالا
+        .sellercard-dividerline
+        .sellercard-pricing
+         - let finalPrice; if (product.discount > 0) {finalPrice = product.price - (product.price * (product.discount / 100))} else {finalPrice = product.price};
+         -if(product.discount > 0)
+          p.sellercard-pricing-title قیمت فروشنده:
+          .sellercard-pricing-numbers
+            div(class="sellercard-pricing-beforedis")
+              p.sellercard-pricing-crossedprice=`${new Intl.NumberFormat("fa-IR").format(product.price)}`
+              p.sellercard-pricing-discountrate=`${new Intl.NumberFormat("fa-IR").format(product.discount)}٪`
+            div
+              p.sellercard-pricing-finalprice=`${new Intl.NumberFormat("fa-IR").format(finalPrice)}`
+         -if(product.discount == 0)
+          p.sellercard-pricing-title قیمت فروشنده:
+          .sellercard-pricing-numbers
+           p.sellercard-pricing-finalprice=`${new Intl.NumberFormat("fa-IR").format(product.price)}`
+        
+         -if (targetOrder)
+           div.cart__btn-div
+             div.addtocart.cart__btn-atc(data-product-id=`${targetOrder.productName.id}`) +
+             p= `${new Intl.NumberFormat("fa-IR").format(targetOrder.productCount)}`
+             -if (targetOrder.productCount === 1)
+              svg.icon-trash.removefromcart(data-product-id=`${targetOrder.productName.id}`)
+               use(xlink:href="/img/svg-icons.svg#icon-trash")
+             -if (targetOrder.productCount > 1) 
+               div.removefromcart.cart__btn-atc(data-product-id=`${targetOrder.productName.id}`) -
+         -if (user && !targetOrder)
+           button.btn-cta.addtocart(data-product-id=`${product.id}`) افزودن به سبد خرید
+         -if (!user && !targetOrder)
+          a.btn-cta(href="/login") افزودن به سبد خرید
+  section.comments.container
+    p.comments-title دیدگاه‌ها
+    -if (!product.reviews[0])
+      h3 هنوز دیدگاهی برای این محصول ثبت نشده است
+    -if (product.reviews)
+      .comments-container
+       each review in product.reviews
+        .comment
+         .comment-title=review.title
+         -if (review.recommend === "توصیه نمی‌کنم")
+           .comment-suggestnot
+            svg.dislike-icon
+              use(xlink:href="/img/svg-icons.svg#icon-thumb-down")
+              p |
+              p=review.recommend
+         -if (review.recommend === "توصیه می‌کنم")
+           .comment-suggest
+            svg.like-icon
+              use(xlink:href="/img/svg-icons.svg#icon-thumb-up")
+              p |
+              p=review.recommend
+         -if (review.recommend === "نظری ندارم")
+           .comment-suggest            
+              p=review.recommend
+         .comment-text=review.review
+         .comment-rating
+           svg.score-icon
+            use(xlink:href="/img/svg-icons.svg#icon-star-full")
+           p=`${new Intl.NumberFormat("fa-IR").format(review.rating)}`
+         .comment-details
+          .comment-date=`${new Intl.DateTimeFormat("fa-IR", {day: "numeric", month: "long", year: "numeric"}).format(review.creationDate)}`
+          .comment-owner=`${review.user.name} ${review.user.family}`
+      
+  section.addcomment
+    p(class="addcomment__title") دیدگاه خود را ثبت کنید
+    form(class="addcomment__form", action="#")
+      label(for="addcomment-title", class="addcomment__form-labels") عنوان نظر:
+      input#addcomment-title(type="text", placeholder="", required, class="addcomment__form-input")
+      label(for="addcomment-description", class="addcomment__form-lables") متن نظر:
+      input#addcomment-description(type="text", placeholder="", required, class="addcomment__content")
+      label(for="suggestion-status", class="addcomment__form-lables") آیا این محصول را پیشنهاد می‌کنید؟
+      select#suggestion-status(required, class="addcomment__form-input")
+        option(value="نظری ندارم") لطفاً یک گزینه را انتخاب کنید:
+        option(value="توصیه می‌کنم") توصیه می‌کنم
+        option(value="توصیه نمی‌کنم") توصیه نمی‌کنم
+      label(for="rating", class="addcomment__form-lables") به این محصول چه امیتازی می‌دهید؟
+      select#rating(required, class="addcomment__form-input")
+        option(value="") لطفاً یک گزینه را انتخاب کنید:
+        option(value="1") ۱
+        option(value="2") ۲
+        option(value="3") ۳
+        option(value="4") ۴
+        option(value="5") ۵
+      button.btn-add-comment(data-product-id=`${product.id}`) ثبت دیدگاه
+      //
+        <input type="checkbox" />
+        <input type="number" />

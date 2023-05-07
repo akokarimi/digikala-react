@@ -1,0 +1,41 @@
+<nav class="navigation container">
+  .navigationd
+    .navigationd__right
+      ul.navigationd__right-list
+        li.navigationd__right-item.navigationd__right-menu
+          .under-line
+          svg.svg-icon
+            use(xlink:href="/img/svg-icons.svg#icon-menu")
+          a(href="#") دسته‌بندی کالاها
+        li.navigationd__right-item
+          a(href="#") سوپرمارکت
+        li.navigationd__right-item
+          svg.nav-icon
+            use(xlink:href="/img/svg-icons.svg#icon-fire")
+          a(href="#") پرفروش‌ترین‌ها 
+        li.navigationd__right-item
+          svg.nav-icon
+            use(xlink:href="/img/svg-icons.svg#icon-discout")
+          a(href="#") تخفیف‌ها و پیشنهادها
+        li.navigationd__right-item
+          a(href="#") !شگفت‌انگیزها
+        li.navigationd__right-item
+          a(href="#") سوالی دارید؟
+        li.navigationd__right-item
+          a(href="#") در دیجی‌کالا بفروشید!
+    .navigationd__left
+      a(href="#" class="btn-enter-location") لطفا شهر خود را انتخاب کنید
+      svg.svg-icon
+        use(xlink:href="/img/svg-icons.svg#icon-location1")
+  .navigationt
+    if user
+      input(class= "search-bar-tablet" type="search" placeholder="جستجو" dir="rtl")
+      a(href="/profile" class="btn-signin")
+        svg.svg-icon
+          use(xlink:href="/img/svg-icons.svg#icon-user")
+    else 
+      input(class= "search-bar-tablet" type="search" placeholder="جستجو" dir="rtl")
+      a(href="/login" class="btn-signin")
+        svg.svg-icon
+          use(xlink:href="/img/svg-icons.svg#icon-enter")
+        div ورود

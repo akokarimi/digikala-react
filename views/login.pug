@@ -1,0 +1,33 @@
+html(lang='Fa' dir='rtl')
+  head
+    meta(charset='UTF-8')
+    meta(http-equiv='X-UA-Compatible' content='IE=edge')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    link(rel='stylesheet' href='/byekan/stylesheet.css')
+    link(rel='Stylesheet' href='/css/style.css')
+    title #{title}
+  
+  body
+    form.signin
+      a.form-logo-link(href="/")
+        svg.form-logo
+          use(xlink:href="/img/svg-icons.svg#main-icon-farsi")
+      .signin-title
+        p ورود |
+        a(href="/signup") ثبت‌نام
+      .signin-message
+        p سلام!
+        p
+        | لطفا ایمیل و پسورد خود را وارد کنید
+      label.signin-label(for="email") ایمیل:
+      input#email.signin-input(type="email", dir="ltr")
+      label.signin-label(for="password") پسورد:
+      input#password.signin-input(type="password", dir="ltr")
+      p.signin-error
+      button.signin-btn-2 ورود
+      .signin-footer
+        p در صورتی که حساب کاربری ندارید
+        a(href="/signup") ثبت‌نام
+        p کنید
+      
+  script(defer src='/script/bundle.js')

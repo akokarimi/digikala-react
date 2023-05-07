@@ -1,0 +1,32 @@
+html(lang="Fa", dir="rtl")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet", href='/byekan/stylesheet.css')
+    link(rel="Stylesheet", href="/css/style.css")
+    title #{title}
+  body
+    form.signup
+      a.form-logo-link(href="/")
+        svg.form-logo
+          use(xlink:href="/img/svg-icons.svg#main-icon-farsi")
+      .signup-title
+        p ثبت‌نام |
+        a(href="/") خانه
+      .signup-message
+        p لطفا مشخصات خود را وارد کنید
+      form.form__signup
+        label.signup-label(for="name") نام:
+        input#name.signup-input(type="text", dir="ltr")
+        label.signup-label(for="family") نام‌خانوادگی:
+        input#family.signup-input(type="text", dir="ltr")
+        label.signup-label(for="email") ایمیل:
+        input#email.signup-input(type="email", dir="ltr")
+        label.signup-label(for="password") رمز عبور:
+        input#password.signup-input(type="password", dir="ltr")
+        label.signup-label(for="confirm-password") تکرار رمز عبور:
+        input#confirm-password.signup-input(type="password", dir="ltr")
+        button.signup-btn-2 ثبت‌نام
+
+  script(defer src='/script/bundle.js') 

@@ -1,0 +1,117 @@
+header.header.container
+  .header-desktop
+    .header-desktop__right
+      a(href="/")
+        svg.icon-logo-en
+          use(xlink:href="/img/svg-icons.svg#icon-logo-en")
+      .input(class="search-bar" type="search" placeholder="جستجو" dir="rtl")
+    .header-desktop__left
+      if user
+        div(href="/profile" class="btn-profile")
+          svg.svg-icon
+            use(xlink:href="/img/svg-icons.svg#icon-user")
+          input(type="checkbox" class="filter_checkbox" id="profile-toggle")
+          label(for="profile-toggle" class="toggle-icon--profile")
+            svg.toggle-icon
+              use(xlink:href="/img/svg-icons.svg#icon-keyboard_arrow_down")
+          <div className="profile-modal">
+            <Link>(href="/profile" class="profile-modal__name")
+              <p>{`${user.name} ${user.family}`}</p>
+              <svg className="svg-icon">
+                <use xlink:href="/img/svg-icons.svg#icon-keyboard_arrow_left"/>
+              </svg>
+            </Link>
+            <Link href="#" className="profile-modal__logout">
+              <p> خروج از حساب </>
+              <svg className="svg-icon">
+                <use xlink:href="/img/svg-icons.svg#icon-exit"/>
+              </svg>
+          </div>
+
+
+
+        -if (!user.orders[0])
+          a(href="/cart" class="btn-cart")
+            svg.svg-icon
+              use(xlink:href="/img/svg-icons.svg#icon-cart")
+        -if (user.orders[0])
+          .cart-section
+            button.btn-cart
+              svg.svg-icon
+                use(xlink:href="/img/svg-icons.svg#icon-cart")
+            p.cart-quantity=`${new Intl.NumberFormat("fa-IR").format(user.orders.length)}`
+            .cart-modal
+              .cart__firsrow
+                    p= `${new Intl.NumberFormat("fa-IR").format(user.orders.length)} کالا`
+                    a(href="#") مشاهدهٔ سبد خرید
+                    -let cartFinalPrice = 0;
+              each product in user.orders
+                .cart__item
+                    div(class="cart__imgbox")
+                      div(class="cart__imgbox-specialoffer")
+                       svg.speciallsell-icon
+                        -if(product.productName.discount > 0)
+                         use(xlink:href="/img/svg-icons.svg#icon-SpecialSell")
+                        -if(product.productName.discount == 0)
+                         use()
+                      a(class="cart__link" href=`/product/${product.productName.slug}`)
+                          img(src=`/img/${product.productName.type}/${product.productName.brandEnglish}/${product.productName.model}/image-4.jpg`, alt=`${product.productName.name}`, class="cart__imgbox-img")
+                    div(class="cart__details")
+                      p(class="cart__details-name")= product.productName.name
+                      div(class="cart__details-price")
+                        div(class="cart__btn-div")
+                          div.addtocart.cart__btn-atc(data-product-id=`${product.productName.id}`) +
+                          p= `${new Intl.NumberFormat("fa-IR").format(product.productCount)}`
+                          if product.productCount === 1 
+                            div.removefromcart.cart__btn-atc
+                              svg.icon-trash(data-product-id=`${product.productName.id}`)
+                                use(xlink:href="/img/svg-icons.svg#icon-trash")
+                          else 
+                            div.removefromcart.cart__btn-atc(data-product-id=`${product.productName.id}`) -
+                        - let finalPrice; if (product.productName.discount > 0) {finalPrice = product.productName.price - (product.productName.price * (product.productName.  discount /           100))} else {finalPrice = product.productName.price}; cartFinalPrice = cartFinalPrice + finalPrice * product.productCount; let disAmount = product.productName.price - finalPrice
+                        p(class="cart__details-price-final")= `${new Intl.NumberFormat("fa-IR").format(finalPrice*product.productCount)}`
+                      -if(product.productName.discount > 0)
+                        p(class="cart__details-before-price")= `${new Intl.NumberFormat("fa-IR").format(disAmount*product.productCount)} تومان تخفیف` 
+                      -if(product.productName.discount == 0)
+                        p()
+              .cart__thirdrow
+                div.cart__finalprice
+                  p.cart__finalprice-text قابل پرداخت:
+                  p.cart__finalprice-number= `${new Intl.NumberFormat("fa-IR").format(cartFinalPrice)}`
+                a.cart__cta-btn(href="/cart") نهایی کردن سبد خرید
+ 
+                
+                
+                  
+                    
+                   
+          
+
+  
+         
+         
+
+      else 
+        a(href="/login" class="btn-signin")
+          svg.svg-icon
+            use(xlink:href="/img/svg-icons.svg#icon-enter")
+          div ورود | ثبت‌نام
+        svg.svg-icon
+          use(xlink:href="/img/svg-icons.svg#icon-cart")
+
+
+  .header-tablet
+    svg.svg-icon
+      use(xlink:href="/img/svg-icons.svg#icon-menu")
+    a(href="/")
+     svg.icon-logo-en
+      use(xlink:href="/img/svg-icons.svg#icon-logo-en")
+    -if (user)
+      a(href="/cart" class="btn-signin")
+       svg.svg-icon
+        use(xlink:href="/img/svg-icons.svg#icon-cart")
+    -if (!user) 
+      a(href="/login" class="btn-signin")
+       svg.svg-icon
+        use(xlink:href="/img/svg-icons.svg#icon-cart")
+    

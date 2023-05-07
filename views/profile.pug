@@ -1,0 +1,36 @@
+extends base
+
+block content
+  
+  main.profile 
+    
+    <form class="profile__form" type="submit">
+      <p className="profile__title">تنظیمات حساب کاربری</p>
+      
+      <label htmlFor="name", class="profile__form-labels"> نام:</label>
+      <input name="name"(type="text", className="profile__form-input", value=`${user.name}`/>
+      <label htmlFor="family", class="profile__form-labels"> نام خانوادگی:</label>
+      <input name="family " type="text", class="profile__form-input", value=`${user.family}`)/>
+      <label htmlFor="email" class="profile__form-labels"> ایمیل:</label>
+      <input name="email" type="email" class="profile__form-input"/>
+      <button className="btn-editprofile btn-profile-changesetting"> ذخیره تنظیمات</button>
+    </form>
+
+    <form class="profile__form" type="submit">
+      <p className="profile__title">تغییر پسورد</p>
+      
+      <label hmtlFor="passwordCurrent" class="profile__form-labels">پسورد فعلی:</label>
+      <input name="profile__form-passwordCurrent" type="password" class="profile__form-input"/>
+      <label htmlFor="profile__form-password" class="profile__form-labels">پسورد جدید:</label>
+      <input name="password" type="password" class="profile__form-input"/>
+      <label htmlFor="confirmPassword" class="profile__form-labels"> تکرار پسورد جدید:</label>
+      <input name="confirmPassword" type="password" class="profile__form-input"/>
+      <button className="btn-editprofile btn-profile-updatepassword">تغییر پسورد</button>
+    </form>
+    
+    
+    <Link className="profile-logout-text">خروج از حساب کاربری </Link>
+    <Link className="profile-modal__logout profile-logout-btn">
+      <p> خروج </p>
+    </Link>
+      
